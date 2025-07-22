@@ -1,0 +1,19 @@
+services:
+  database:
+    image: mysql:8.0
+    container_name: bible-database
+    restart: always
+    ports:
+      - 3306:3306
+    volumes:
+      - ./database/sql-init:/docker-entrypoint-initdb.d
+    environment:
+      - MYSQL_ROOT_PASSWORD=r00t
+      - MYSQL_USER=paul
+      - MYSQL_PASSWORD=genesis
+      - MYSQL_DATABASE=bible_db
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", "-uroot", "-pr00t"]
+      interval: 5s
+      timeout: 10s
+      retries: 30
