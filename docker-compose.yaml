@@ -17,3 +17,24 @@ services:
       interval: 5s
       timeout: 10s
       retries: 30
+    networks:
+      - bible_network
+      
+  database-tests:
+    build: ./database-tests
+    container_name: database-tests
+    depends_on:
+      database:
+        condition: service_healthy
+    volumes:
+      - ./database-tests:/usr/src/database-tests
+    environment:
+      - DB_USERNAME=paul
+      - DB_PASSWORD=genesis
+      - DB_NAME=bible_db
+    networks:
+      - bible_network
+    
+    command: tail -f /dev/null
+networks:
+  bible_network:

@@ -1,4 +1,4 @@
-SET @bookId = (SELECT id FROM book WHERE name = 'Galatians');
+SET @bookId = (SELECT id FROM book WHERE title = 'Galatians');
 
 INSERT INTO chapter(number, verse_count, book_id)
 VALUES

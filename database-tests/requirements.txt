@@ -1,0 +1,5 @@
+cryptography==42.0.5
+pymysql==1.1.0
+robotframework==7.0
+robotframework-databaselibrary==1.4.4
+robotframework-requests==0.9.7

@@ -2,7 +2,7 @@
 
 /*
 SELECT
-	b.name,
+	b.title,
 	b.chapter_count as chapterCount,
 	t.name as testamentName,
 	bc.name as categoryName

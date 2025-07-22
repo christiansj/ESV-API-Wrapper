@@ -8,7 +8,7 @@ FROM
     chapter c,
     book b
 WHERE(
-    b.name = ?
+    b.title = ?
     AND c.book_id = b.id
 );
 */
