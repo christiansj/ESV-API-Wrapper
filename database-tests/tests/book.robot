@@ -3,7 +3,7 @@ Documentation      Contains test cases related to the Book table in the database
 
 Suite Setup        Connect To MySQL Database
 Suite Teardown     Disconnect From Database
-Resource           ../../resources/commonKeywords.robot
+Resource           ../resources/commonKeywords.robot
 
 *** Test Cases ***
 Book Table Should Exist
