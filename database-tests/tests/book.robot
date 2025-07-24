@@ -22,7 +22,13 @@ Chapter Count Should Match
     @{parameters}=    Create List    Galatians
     Check Query Result  ${book_chapter_count}    ==    ${chapter_row_count}  
     ...    parameters=${parameters}
-    
+
+
+INSERT Book Should Be Denied    
+    ${query}=     Set Variable    INSERT INTO book(name) VALUES('Test Book')
+    ${error}=    Run Keyword And Expect Error   OperationalError: *    Query    ${query}
+    Should Contain    ${error}    INSERT command denied
+    Log Pass Message    INSERT command was denied for "Book"
 
 *** Keywords ***
 Book Should Exist
