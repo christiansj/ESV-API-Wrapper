@@ -29,8 +29,8 @@ services:
     volumes:
       - ./database-tests:/usr/src/database-tests
     environment:
-      - DB_USERNAME=paul
-      - DB_PASSWORD=genesis
+      - DB_USERNAME=esv_consumer
+      - DB_PASSWORD=esv!
       - DB_NAME=bible_db
     networks:
       - bible_network
