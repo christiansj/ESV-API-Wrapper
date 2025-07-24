@@ -36,5 +36,23 @@ services:
       - bible_network
     
     command: tail -f /dev/null
+  api:
+    container_name: esv-api
+    build: ./api
+    ports: 
+      - 8080:8080
+    depends_on: 
+      database:
+        condition: service_healthy
+    volumes:
+      - ./api:/api
+      - /api/node_modules
+    environment:
+      - DB_HOST=database
+      - DB_USER=esv_consumer
+      - DB_PASSWORD=esv!
+      - DB_PORT=3306
+      - DB_NAME=bible_db
+      - PORT=8080
 networks:
   bible_network:
