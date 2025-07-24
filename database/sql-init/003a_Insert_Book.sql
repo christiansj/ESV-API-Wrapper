@@ -13,6 +13,15 @@ VALUES
 
 SET @testament = (SELECT id FROM testament WHERE name = 'New Testament');
 
+-- Gospels
+SET @category = (SELECT id FROM book_category WHERE name = "Gospels"); 
+INSERT INTO book(title, chapter_count, testament_id, book_category_id)
+VALUES
+    ('Matthew', 28, @testament, @category),
+    ('Mark', 16, @testament, @category),
+    ('Luke', 24, @testament, @category),
+    ('John', 21, @testament, @category);
+
 -- Paul's Letters
 SET @category = (SELECT id FROM book_category WHERE name = "Paul's Letters");
 INSERT INTO book(title, chapter_count, testament_id, book_category_id)
@@ -24,4 +33,9 @@ VALUES
     ('Ephesians', 6, @testament, @category),
     ('Philippians', 4, @testament, @category),
     ('Colossians', 4, @testament, @category),
-    ('1 Thessalonians', 5, @testament, @category);
+    ('1 Thessalonians', 5, @testament, @category),
+    ('2 Thessalonians', 3, @testament, @category),
+    ('1 Timothy', 6, @testament, @category),
+    ('2 Timothy', 4, @testament, @category),
+    ('Titus', 3, @testament, @category),
+    ('Philemon', 1, @testament, @category);

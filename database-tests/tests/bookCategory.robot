@@ -12,18 +12,25 @@ Book Category Table Should Exists
 
 
 Pentateuch Books Should Exist
-    ${5} Books Exists In Category "Pentateuch"
+    ${5} Books Exist In Category "Pentateuch"
     Book "Genesis" Has Category "Pentateuch"
     Book "Exodus" Has Category "Pentateuch"
     Book "Leviticus" Has Category "Pentateuch"
     Book "Numbers" Has Category "Pentateuch"
     Book "Deuteronomy" Has Category "Pentateuch"
 
+Gospels Should Exist
+    ${4} Books Exist In Category "Gospels"
+    Book "Matthew" Has Category "Gospels"
+    Book "Mark" Has Category "Gospels"
+    Book "Luke" Has Category "Gospels"
+    Book "John" Has Category "Gospels"
+
 *** Keywords ***
-${count} Books Exists In Category "${category}"
+${count} Books Exist In Category "${category}"
     ${query}=    Set Variable    SELECT * FROM book b, book_category bc WHERE(b.book_category_id = bc.id AND bc.name = %s);
     @{parameters}=    Create List    ${category}
-    Check Row Count    ${query}    ==    5    parameters=${parameters}
+    Check Row Count    ${query}    ==    ${count}    parameters=${parameters}
     Log Pass Message    ${count} "${category}" books exist
 
 Book "${title}" Has Category "${category}"
