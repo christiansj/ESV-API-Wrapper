@@ -1,5 +1,5 @@
 /**
- * PetType model class contains functions that fetches data from the MySQL database.
+ * Book model class contains functionality for fetching data from the MySQL database.
  */
 import { executeQuery } from '../db';
 import { ResultCallback } from '../types';
