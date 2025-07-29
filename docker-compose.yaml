@@ -36,6 +36,7 @@ services:
       - bible_network
     
     command: tail -f /dev/null
+
   api:
     container_name: esv-api
     build: ./api
@@ -56,5 +57,16 @@ services:
       - PORT=8080
     networks:
       - bible_network
+
+  api-tests:
+    container_name: api-tests
+    build: ./tests/api
+    volumes:
+      - ./tests/api:/usr/src/api-tests
+    command: tail -F anything
+    networks:
+      - bible_network
+    environment:
+      - API_URL=http://api:8080
 networks:
   bible_network:
