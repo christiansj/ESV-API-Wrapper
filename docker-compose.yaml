@@ -54,5 +54,7 @@ services:
       - DB_PORT=3306
       - DB_NAME=bible_db
       - PORT=8080
+    networks:
+      - bible_network
 networks:
   bible_network:
