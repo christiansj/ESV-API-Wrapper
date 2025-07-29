@@ -21,7 +21,7 @@ services:
       - bible_network
       
   database-tests:
-    build: ./database-tests
+    build: ./tests/database
     container_name: database-tests
     depends_on:
       database:
