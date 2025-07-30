@@ -6,6 +6,8 @@ import static org.hamcrest.Matchers.*;
 
 import org.testng.annotations.Test;
 
+import com.example.ConsoleLogger;
+
 public class BookApiTest {
     private final String API_URL = System.getenv("API_URL");
 
@@ -13,6 +15,7 @@ public class BookApiTest {
     public void BookEndpointShouldBeHealthy(){
         get(API_URL + "/book")
             .then()
-            .statusCode(200);
+            .statusCode(200);  
+        ConsoleLogger.LogPassMessage("\"/book\" endpoint returns status code 200");
     }
 }
