@@ -12,11 +12,19 @@
                         },
                         "chapterCount": {
                             "type": "number"
+                        },
+                        "testamentName": {
+                            "type": "string"
+                        },
+                        "categoryName": {
+                            "type": "string"
                         }
                     },
                     "required": [
                         "title",
-                        "chapterCount"
+                        "chapterCount",
+                        "testamentName",
+                        "categoryName"
                     ]
                 }
             ]
