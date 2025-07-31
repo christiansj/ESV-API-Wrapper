@@ -1,2 +1,3 @@
-2025-07-31 02:08:14,997 INFO bookLogger Book Endpoint Health Check Test
-2025-07-31 02:08:16,795 INFO bookLogger "/book" endpoint returns status code 200
+2025-07-31 03:00:11,492 INFO bookLogger == TEST Book Endpoint Health Check ==
+2025-07-31 03:00:14,107 INFO bookLogger "/book" endpoint returns status code 200
+2025-07-31 03:00:14,112 INFO bookLogger == TEST Get All "/book" Schema ==
