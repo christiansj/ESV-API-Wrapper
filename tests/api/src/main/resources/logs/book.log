@@ -1,0 +1,2 @@
+2025-07-31 02:08:14,997 INFO bookLogger Book Endpoint Health Check Test
+2025-07-31 02:08:16,795 INFO bookLogger "/book" endpoint returns status code 200
