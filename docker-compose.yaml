@@ -20,23 +20,6 @@ services:
     networks:
       - bible_network
       
-  database-tests:
-    build: ./tests/database
-    container_name: database-tests
-    depends_on:
-      database:
-        condition: service_healthy
-    volumes:
-      - ./database-tests:/usr/src/database-tests
-    environment:
-      - DB_USERNAME=esv_consumer
-      - DB_PASSWORD=esv!
-      - DB_NAME=bible_db
-    networks:
-      - bible_network
-    
-    command: tail -f /dev/null
-
   api:
     container_name: esv-api
     build: ./api
@@ -58,15 +41,33 @@ services:
     networks:
       - bible_network
 
+
+  database-tests:
+    build: ./tests/database
+    container_name: database-tests
+    depends_on:
+      database:
+        condition: service_healthy
+    volumes:
+      - ./database-tests:/usr/src/database-tests
+    environment:
+      - DB_USERNAME=esv_consumer
+      - DB_PASSWORD=esv!
+      - DB_NAME=bible_db
+    networks:
+      - bible_network
+    command: tail -f /dev/null
+
   api-tests:
     container_name: api-tests
     build: ./tests/api
     volumes:
       - ./tests/api:/usr/src/api-tests
-    command: tail -F anything
-    networks:
-      - bible_network
     environment:
       - API_URL=http://api:8080
+    networks:
+      - bible_network
+    command: tail -F anything
+
 networks:
   bible_network:
