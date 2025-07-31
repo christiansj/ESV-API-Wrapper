@@ -8,7 +8,7 @@ import { ResultCallback } from '../types';
 const Book = function () {};
 
 Book.getAll = (resultCallback: ResultCallback) => {
-    const query = "SELECT title, chapter_count FROM book";
+    const query = "SELECT title, chapter_count as chapterCount FROM book";
     executeQuery(query, null, resultCallback);
 }
 

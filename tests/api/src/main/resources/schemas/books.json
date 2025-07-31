@@ -10,13 +10,13 @@
                         "title": {
                             "type": "string"
                         },
-                        "chapter_count": {
+                        "chapterCount": {
                             "type": "number"
                         }
                     },
                     "required": [
                         "title",
-                        "chapter_count"
+                        "chapterCount"
                     ]
                 }
             ]
