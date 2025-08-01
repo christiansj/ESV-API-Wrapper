@@ -17,16 +17,17 @@ export function createConnection(): Connection {
 
 }
 
-export function executeQuery(query: string, parameters: any[] | null, resultCallback: ResultCallback): void {
-    const connection = createConnection()
-
-    connection.query(query, parameters, (err, results)=> {
-        if(err){
-            console.error(err)
-            resultCallback(err, null)
-            return
-        }
-        console.log(results)
-        resultCallback(null, results)
-    })
+export function executeQuery(query: string, parameters: any[] | null) {
+    return new Promise((resolve, reject)=>{
+        const connection = createConnection()
+        connection.query(query, parameters, (err, results)=> {
+            if(err){
+                console.error(err)
+                reject(err)
+                return
+            }
+            console.log(results)
+            resolve(results)
+        })
+    });
 }

@@ -24,21 +24,19 @@ Book.getAll = (resultCallback: ResultCallback) => {
             AND b.book_category_id = bc.id
         );
     `;
-    executeQuery(query, null, resultCallback);
+    executeQuery(query, null)
+        .then(result=>resultCallback(null, result))
+        .catch(err=>resultCallback(err, null))
 }
 
 
 function getCountWithTitle(title: string){
-    const connection = createConnection()
     return new Promise((resolve, reject)=>{
-        connection.query("SELECT COUNT(*) as count FROM book WHERE title = ?", title, (err, results: any)=>{
-            if(err){
-                reject(err);
-                return;
-            }
-            resolve(results[0].count)
-        })
-    });
+        executeQuery("SELECT COUNT(*) as count FROM book WHERE title = ?", [title])
+            .then(result=>resolve(result[0].count))
+            .catch(err=>reject(err))
+    })
+
 }
 
 
@@ -48,17 +46,12 @@ Book.getByTitle = (title: string, resultCallback: ResultCallback) => {
     const chapterPromise = getChaptersQuery(title);
     
     Promise.all([countPromise, bookPromise, chapterPromise])
-    .then(([count, books, chapters])=> {
+    .then(([count, book, chapters]: [number, any, any])=> {
         if(count == 0){
             resultCallback(null, []);
             return;
         }
-        const payload = {
-            title,
-            chapters
-        }
-        console.log("books", books)
-        resultCallback(null, payload);
+        resultCallback(null, {...book["0"], chapters});
     })
     .catch(err=>{
         console.error(err)
@@ -84,21 +77,7 @@ function getBookByTitleQuery(title: string): Promise<unknown>{
             AND b.book_category_id = bc.id
         );
     `;
-
-   return new Promise((resolve, reject)=>{
-        const connection = createConnection()
-        connection.query(bookQuery, title, (err, result)=>{
-            if(err){
-                reject(err)
-                return;
-            }
-            resolve(result);
-        })
-
-    })
-    .catch(err=> {
-        console.error(err);
-    });
+    return executeQuery(bookQuery, [title])
 }
 
 
@@ -116,19 +95,7 @@ function getChaptersQuery(bookTitle: string): Promise<unknown>{
         )
         ORDER BY number;
     `;
-    return new Promise((resolve, reject)=> {
-        const connection = createConnection()
-        connection.query(chapterQuery, bookTitle, (err, result)=> {
-            if(err){
-                reject(err)
-                return;
-            }
-            resolve(result)
-        })
-    })
-    .catch(err=>{
-        console.error(err)
-    });
+    return executeQuery(chapterQuery, [bookTitle])
 }
 
 
