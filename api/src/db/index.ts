@@ -1,5 +1,4 @@
-import mysql, { Connection, Pool } from "mysql2";
-import { ResultCallback } from "../types";
+import mysql, { Connection } from "mysql2";
 const { DB_HOST, DB_USER, DB_PASSWORD, DB_NAME } = process.env;
 
 export function createConnection(): Connection {
@@ -17,7 +16,7 @@ export function createConnection(): Connection {
 
 }
 
-export function executeQuery(query: string, parameters: any[] | null) {
+export function executeQuery(query: string, parameters: any[] | null): Promise<unknown> {
     return new Promise((resolve, reject)=>{
         const connection = createConnection()
         connection.query(query, parameters, (err, results)=> {

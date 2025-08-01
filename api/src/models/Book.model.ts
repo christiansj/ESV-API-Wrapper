@@ -1,14 +1,14 @@
 /**
  * Book model class contains functionality for fetching data from the MySQL database.
  */
-import { FieldPacket, RowDataPacket } from 'mysql2';
-import { executeQuery, createConnection } from '../db';
+import { executeQuery } from '../db';
+import { IBook } from '../interfaces/Book.interface';
 import { ResultCallback } from '../types';
 
 // Constructor
-const Book = function () {};
+const BookModel = function () {};
 
-Book.getAll = (resultCallback: ResultCallback) => {
+BookModel.getAll = (resultCallback: ResultCallback): void => {
     const query = `
         SELECT
             b.title,
@@ -30,8 +30,8 @@ Book.getAll = (resultCallback: ResultCallback) => {
 }
 
 
-function getCountWithTitle(title: string){
-    return new Promise((resolve, reject)=>{
+function getCountWithTitle(title: string): Promise<number>{
+    return new Promise<number>((resolve, reject)=>{
         executeQuery("SELECT COUNT(*) as count FROM book WHERE title = ?", [title])
             .then(result=>resolve(result[0].count))
             .catch(err=>reject(err))
@@ -40,13 +40,13 @@ function getCountWithTitle(title: string){
 }
 
 
-Book.getByTitle = (title: string, resultCallback: ResultCallback) => {  
+BookModel.getByTitle = (title: string, resultCallback: ResultCallback): void => {  
     const countPromise = getCountWithTitle(title);
     const bookPromise = getBookByTitleQuery(title);
     const chapterPromise = getChaptersQuery(title);
     
     Promise.all([countPromise, bookPromise, chapterPromise])
-    .then(([count, book, chapters]: [number, any, any])=> {
+    .then(([count, book, chapters]: [number, IBook, any])=> {
         if(count == 0){
             resultCallback(null, []);
             return;
@@ -99,4 +99,4 @@ function getChaptersQuery(bookTitle: string): Promise<unknown>{
 }
 
 
-export default Book;
+export default BookModel;
