@@ -1,11 +1,10 @@
-import mysql, { Pool } from "mysql2";
+import mysql, { Connection, Pool } from "mysql2";
 import { ResultCallback } from "../types";
 const { DB_HOST, DB_USER, DB_PASSWORD, DB_NAME } = process.env;
 
-export function createPool(): Pool {
+export function createConnection(): Connection {
     try {
-        const connection: Pool = mysql.createPool({
-            connectionLimit: 10,
+        const connection: Connection = mysql.createConnection({
             host: DB_HOST,
             user: DB_USER,
             password: DB_PASSWORD,
@@ -19,9 +18,9 @@ export function createPool(): Pool {
 }
 
 export function executeQuery(query: string, parameters: any[] | null, resultCallback: ResultCallback): void {
-    const pool = createPool()
+    const connection = createConnection()
 
-    pool.query(query, parameters, (err, results)=> {
+    connection.query(query, parameters, (err, results)=> {
         if(err){
             console.error(err)
             resultCallback(err, null)
