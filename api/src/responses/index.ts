@@ -4,4 +4,6 @@ type JsonArray = Json[]
 
 export const DataResponse = (data: JsonArray) => {return {data}}
 
-export const ErrorResponse = (error: string | null) => {return {error}}
+export const ErrorResponse = (message: string | null, statusCode: number) => {
+    return {statusCode, message}
+}
