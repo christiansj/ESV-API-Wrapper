@@ -5,6 +5,7 @@ const port = process.env.PORT || 8080;
 
 // routes
 import bookRoutes from './routes/book.route'
+import passageRoutes from './routes/passage.route'
 import { errorHandler } from './middlewares/errorHandler';
 
 // Root url
@@ -13,6 +14,7 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.use("/book", bookRoutes)
+app.use("/passage", passageRoutes)
 app.use(errorHandler)
 
 app.listen(port, () => {

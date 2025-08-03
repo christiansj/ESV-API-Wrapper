@@ -38,6 +38,7 @@ services:
       - DB_PORT=3306
       - DB_NAME=bible_db
       - PORT=8080
+      - ESV_API_KEY=${ESV_API_KEY}
     networks:
       - bible_network
 
