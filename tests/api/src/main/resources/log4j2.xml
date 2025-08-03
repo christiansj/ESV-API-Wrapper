@@ -11,10 +11,18 @@
                 <Pattern>%d %p %c{1.} %m%n</Pattern>
             </PatternLayout>
         </File>
+        <File name="PassageFile" fileName="src/main/resources/logs/passage.log" append="false">
+            <PatternLayout>
+                <Pattern>%d %p %c{1.} %m%n</Pattern>
+            </PatternLayout>
+        </File>
     </Appenders>
     <Loggers>
         <Logger name="bookLogger" level="info" additivity="false">
             <AppenderRef ref="BookFile" />
+        </Logger>
+        <Logger name="passageLogger" level="info" additivity="false">
+            <AppenderRef ref="PassageFile" />
         </Logger>
         <Root level="error">
             <AppenderRef ref="Console"/>

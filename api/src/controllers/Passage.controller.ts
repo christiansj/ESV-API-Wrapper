@@ -17,7 +17,7 @@ function parsePassageParam(passage: string): PassageParam{
     const verses = tokens[tokens.length - 1]
     console.log("Book:", book, "Verses:", verses)
     
-    const verseRegex = /^\d{1,2}(\:\d{1,2}){0,1}$/
+    const verseRegex = /^\d{1,2}(\:\d{1,2}(-\d{1,2}){0,1}){0,1}$/
     if(!verseRegex.test(verses)){
         // throw invalid passage format
     }

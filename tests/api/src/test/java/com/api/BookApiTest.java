@@ -16,8 +16,8 @@ public class BookApiTest {
      * GET request to "/book" returns status 200
      */
     @Test
-    public void getAll200Check() {
-        LOGGER.info("== TEST Book Endpoint 200 Check ==");
+    public void shouldReturn200ForAllBooks() {
+        LOGGER.info("== TEST Should Return 200 For All Books ==");
         given()
             .baseUri(API_URL + "/book")
         .when() 
@@ -31,8 +31,8 @@ public class BookApiTest {
      * Data returned from "/book" returns correct JSON schema
      */
     @Test
-    public void validateGetAllSchema(){
-        LOGGER.info("== TEST Get All \"/book\" Schema ==");
+    public void shouldReturnValidSchemaForAllBooks(){
+        LOGGER.info("== TEST Should REturn Valid Schema For All Books ==");
         given()
             .baseUri(API_URL + "/book")
         .when() 
@@ -48,8 +48,8 @@ public class BookApiTest {
      * GET request to "/book/:existingBookTitle" returns 200
      */
     @Test
-    public void getExistingBook200Check(){
-        LOGGER.info("== TEST Existing Book 200 Check ==");
+    public void shouldReturn200ForExistingBook(){
+        LOGGER.info("== TEST Should Return 200 For Existing Book ==");
         given()
             .baseUri(API_URL + "/book/Galatians")
         .when() 
@@ -63,8 +63,8 @@ public class BookApiTest {
      * GET request to "/book/:nonexistingBookTitle" returns 404
      */
     @Test
-    public void getNonExistingBook404Check(){
-        LOGGER.info("== TEST Nonexisting Book 404 Check ==");
+    public void shouldReturn404ForNonexistingBook(){
+        LOGGER.info("== TEST Should REturn 404 FOr Nonexisting Book ==");
         given()
             .baseUri(API_URL + "/book/BadBook")
         .when() 
