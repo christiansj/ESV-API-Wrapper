@@ -30,13 +30,12 @@ BookModel.getAll = (resultCallback: ResultCallback): void => {
 }
 
 
-function getCountWithTitle(title: string): Promise<number>{
+export function getCountWithTitle(title: string): Promise<number>{
     return new Promise<number>((resolve, reject)=>{
         executeQuery("SELECT COUNT(*) as count FROM book WHERE title = ?", [title])
             .then(result=>resolve(result[0].count))
             .catch(err=>reject(err))
     })
-
 }
 
 

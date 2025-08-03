@@ -17,12 +17,12 @@ public class PassageApiTest {
         LOGGER.info("== TEST Should Return 200 For One Verse ==");
         LOGGER.info("Sending GET request to \"/passage/John 3:16\"");
         given()
-            .baseUri(PASSAGE_URL + "/John 3:16")
+            .baseUri(PASSAGE_URL + "/John%203:16")
         .when()
             .get()
         .then()
             .statusCode(200);
-        LOGGER.info("== PASS One Verse Returns Status 200 ==");
+        LOGGER.info("PASS One Verse Returns Status 200 ==");
     }
 
 
@@ -31,12 +31,12 @@ public class PassageApiTest {
         LOGGER.info("== TEST Should Return 200 For Mulitple Verses ==");
         LOGGER.info("Sending GET request to \"/passage/John 1:14-18\"");
         given()
-            .baseUri(PASSAGE_URL + "/John 1:14-18")
+            .baseUri(PASSAGE_URL + "/John%201:14-18")
         .when()
             .get()
         .then()
             .statusCode(200);
-        LOGGER.info("== PASS Multiple Verses Returns Status 200 ==");
+        LOGGER.info("PASS Multiple Verses Returns Status 200 ==");
     }
 
 
@@ -45,12 +45,12 @@ public class PassageApiTest {
         LOGGER.info("== TEST Should Return 404 For Nonexisting Book ==");
         LOGGER.info("Sending GET request to \"/passage/BadBook 4:4\"");
         given()
-            .baseUri(PASSAGE_URL + "/BadBook 4:4")
+            .baseUri(PASSAGE_URL + "/BadBook%204:4")
         .when()
             .get()
         .then()
             .statusCode(404);
-        LOGGER.info("== PASS Nonexisting Book Returns Status 404 ==");
+        LOGGER.info("PASS Nonexisting Book Returns Status 404 ==");
     }
 
     
@@ -59,26 +59,26 @@ public class PassageApiTest {
         LOGGER.info("== TEST Should Return 400 For Chapter Out Of Range ==");
         LOGGER.info("Sending GET request to \"/passage/John 33:4\"");
         given()
-            .baseUri(PASSAGE_URL + "/John 33:4")
+            .baseUri(PASSAGE_URL + "/John%2033:4")
         .when()
             .get()
         .then()
             .statusCode(400);
-        LOGGER.info("== PASS Out of Range Chapter Returns Status 400 ==");
+        LOGGER.info("PASS Out of Range Chapter Returns Status 400 ==");
     }
 
 
     @Test
     public void shouldReturn400ForVerseOutOfRange(){
         LOGGER.info("== TEST Should Return 400 For Verse Out Of Range ==");
-        LOGGER.info("Sending GET request to \"/passage/John 33:4\"");
+        LOGGER.info("Sending GET request to \"/passage/John 5:99\"");
         given()
-            .baseUri(PASSAGE_URL + "/John 5:100")
+            .baseUri(PASSAGE_URL + "/John%205:99")
         .when()
             .get()
         .then()
             .statusCode(400);
-        LOGGER.info("== PASS Out of Range Verse Returns Status 400 ==");
+        LOGGER.info("PASS Out of Range Verse Returns Status 400 ==");
     }
 
     @Test
@@ -86,11 +86,11 @@ public class PassageApiTest {
         LOGGER.info("== TEST Should Return 400 For Invalid Verse Range ==");
         LOGGER.info("Sending GET request to \"/passage/John 33:4\"");
         given()
-            .baseUri(PASSAGE_URL + "/John 7:4-2")
+            .baseUri(PASSAGE_URL + "/John%207:4-2")
         .when()
             .get()
         .then()
             .statusCode(400);
-        LOGGER.info("== PASS Invalid Verse Range Returns Status 400 ==");
+        LOGGER.info("PASS Invalid Verse Range Returns Status 400 ==");
     }
 }
