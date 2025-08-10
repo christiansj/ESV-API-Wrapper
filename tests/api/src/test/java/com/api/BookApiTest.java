@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.annotations.Test;
 
+import com.api.util.SchemaTest;
 import com.api.util.StatusCodeTest;
 
 
@@ -14,7 +15,7 @@ public class BookApiTest {
     private final String BOOK_URL = System.getenv("API_URL") + "/book";
     private final Logger LOGGER = LogManager.getLogger("bookLogger");
     private final StatusCodeTest statusCodeTest = new StatusCodeTest(BOOK_URL, LOGGER);
-    
+    private final SchemaTest schemaTest = new SchemaTest(BOOK_URL, LOGGER);
     
     /**
      * GET request to "/book" returns status 200
@@ -32,14 +33,7 @@ public class BookApiTest {
     @Test
     public void shouldReturnValidSchemaForAllBooks(){
         LOGGER.info("== TEST Should REturn Valid Schema For All Books ==");
-        given()
-            .baseUri(BOOK_URL)
-      .when() 
-            .get()
-        .then()
-            .assertThat()
-            .body(JsonSchemaValidator.matchesJsonSchemaInClasspath("schemas/books.json"))
-            .log().ifValidationFails();
+        schemaTest.getReturnsValidSchema("", "schemas/books.json");
         LOGGER.info("PASS Get All \"/book\" returns correct schema");
     }
 
