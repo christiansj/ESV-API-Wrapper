@@ -40,6 +40,8 @@ function parsePassageParam(passage: string): PassageParam{
     return {bookTitle, verseStart, verseEnd};
 }
 
+
+
 async function validatePassageParam(passageParam: PassageParam){
     const {bookTitle, verseStart, verseEnd} = passageParam;
 
@@ -52,11 +54,15 @@ async function validatePassageParam(passageParam: PassageParam){
 
         getCountWithTitle(bookTitle)
         .then(count=>{
-        if(count == 0) {
-            throw new InvalidRequestError(`Book "${bookTitle} was not found."`, 404)
-        }
-        resolve("good")
-        }).catch((requestError: InvalidRequestError)=>{
+            if(count == 0) {
+                throw new InvalidRequestError(`Book "${bookTitle} was not found."`, 404)
+            }
+
+
+
+            resolve("good")
+        })
+        .catch((requestError: InvalidRequestError)=>{
             console.log("catch 22")
             reject(requestError)
         })
@@ -69,10 +75,8 @@ export const getPassage = async (request: Request, response: Response) => {
         const passageParams = parsePassageParam(passage)
         await validatePassageParam(passageParams)
     } catch(error){
-        console.log("catching the error again")
         if(error instanceof InvalidRequestError){
             const payload = ErrorResponse(error.message, error.errorCode)
-            console.log("caught bad book")
             response.status(error.errorCode).json(payload)
             return;
         }

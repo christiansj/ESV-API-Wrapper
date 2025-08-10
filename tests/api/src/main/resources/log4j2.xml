@@ -13,7 +13,7 @@
         </File>
         <File name="PassageFile" fileName="src/main/resources/logs/passage.log" append="false">
             <PatternLayout>
-                <Pattern>%d %p %c{1.} %m%n</Pattern>
+                <Pattern>%d %p %m%n</Pattern>
             </PatternLayout>
         </File>
     </Appenders>
