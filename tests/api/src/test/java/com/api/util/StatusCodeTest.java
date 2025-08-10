@@ -4,7 +4,7 @@ import static io.restassured.RestAssured.given;
 
 import org.apache.logging.log4j.Logger;
 
-public class ApiTest {
+public class StatusCodeTest {
 
     private static String formatAssertionMessage(AssertionError error){
         return error.getMessage()
