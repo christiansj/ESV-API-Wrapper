@@ -6,13 +6,15 @@ import org.apache.logging.log4j.Logger;
 
 public class StatusCodeTest {
 
-    private static String baseUrl;
-    private static Logger logger;
+    private String baseUrl;
+    private Logger logger;
 
+    
     public StatusCodeTest(String baseUrl, Logger logger){
-        StatusCodeTest.baseUrl= baseUrl;
-        StatusCodeTest.logger = logger;
+        this.baseUrl= baseUrl;
+        this.logger = logger;
     }
+
 
     private String formatAssertionMessage(AssertionError error){
         return error.getMessage()

@@ -7,10 +7,14 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.annotations.Test;
 
+import com.api.util.StatusCodeTest;
+
 
 public class BookApiTest {
-    private final String API_URL = System.getenv("API_URL");
+    private final String BOOK_URL = System.getenv("API_URL") + "/book";
     private final Logger LOGGER = LogManager.getLogger("bookLogger");
+    private final StatusCodeTest statusCodeTest = new StatusCodeTest(BOOK_URL, LOGGER);
+    
     
     /**
      * GET request to "/book" returns status 200
@@ -18,12 +22,7 @@ public class BookApiTest {
     @Test
     public void shouldReturn200ForAllBooks() {
         LOGGER.info("== TEST Should Return 200 For All Books ==");
-        given()
-            .baseUri(API_URL + "/book")
-        .when() 
-            .get()
-        .then() 
-            .statusCode(200);
+        statusCodeTest.getShouldReturn200("");
         LOGGER.info("PASS \"/book\" endpoint returns status code 200");
     }
 
@@ -34,8 +33,8 @@ public class BookApiTest {
     public void shouldReturnValidSchemaForAllBooks(){
         LOGGER.info("== TEST Should REturn Valid Schema For All Books ==");
         given()
-            .baseUri(API_URL + "/book")
-        .when() 
+            .baseUri(BOOK_URL)
+      .when() 
             .get()
         .then()
             .assertThat()
@@ -50,12 +49,7 @@ public class BookApiTest {
     @Test
     public void shouldReturn200ForExistingBook(){
         LOGGER.info("== TEST Should Return 200 For Existing Book ==");
-        given()
-            .baseUri(API_URL + "/book/Galatians")
-        .when() 
-            .get()
-        .then() 
-            .statusCode(200);
+        statusCodeTest.getShouldReturn200("/Galatians");
         LOGGER.info("PASS \"/book/Galatians\" endpoint returns status code 200");
     }
 
@@ -65,15 +59,7 @@ public class BookApiTest {
     @Test
     public void shouldReturn404ForNonexistingBook(){
         LOGGER.info("== TEST Should REturn 404 FOr Nonexisting Book ==");
-        given()
-            .baseUri(API_URL + "/book/BadBook")
-        .when() 
-            .get()
-        .then() 
-            .statusCode(404)
-            .assertThat()
-            .body(JsonSchemaValidator.matchesJsonSchemaInClasspath("schemas/error-message.json"))
-            .log().ifValidationFails();
+        statusCodeTest.getShouldReturn404("/BadBook");
         LOGGER.info("PASS \"/book/BadBook\" endpoint returns status code 404");
     }
 }
