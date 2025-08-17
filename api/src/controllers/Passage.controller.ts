@@ -4,14 +4,15 @@
 import { Request, Response } from 'express';
 import PassageModel from '../models/Passage.model';
 import { InvalidRequestError } from '../types';
-import { getCountWithTitle } from '../models/Book.model';
+import { getChaptersQuery, getCountWithTitle } from '../models/Book.model';
 import { ErrorResponse } from '../responses';
+
 interface PassageParam {
     bookTitle: string,
+    chapter: number,
     verseStart: number,
     verseEnd: number
 }
-
 
 
 function parsePassageParam(passage: string): PassageParam{
@@ -26,8 +27,10 @@ function parsePassageParam(passage: string): PassageParam{
     }
 
     let verseStart, verseEnd: number;
-    const verseTokens = verses.split(":");;
-    const verseRange = verseTokens[1]
+    const verseTokens = verses.split(":");
+    const chapter = Number(verseTokens[0]);
+    const verseRange = verseTokens[1];
+    
     if(verseRange.includes("-")) {
         const rangeTokens = verseRange.split("-")
         verseStart = rangeTokens[0]
@@ -37,16 +40,37 @@ function parsePassageParam(passage: string): PassageParam{
         verseEnd = Number(verseRange)
     }    
 
-    return {bookTitle, verseStart, verseEnd};
+    return {chapter, bookTitle, verseStart, verseEnd};
 }
 
+async function validateVerseRange(passageParam: PassageParam) {
+    interface ChapterRow {
+        number: number,
+        verseCount: number
+    }
+
+    return new Promise((resolve, reject)=>{
+        getChaptersQuery(passageParam.bookTitle)
+        .then((result: Array<ChapterRow>)=>{
+            const chapter = result.find(chapter => chapter.number === passageParam.chapter);
+
+            if(!chapter){
+                throw new InvalidRequestError(`Invalid chapter of ${passageParam.chapter}`, 400);
+            } else if(passageParam.verseEnd > chapter.verseCount){
+                throw new InvalidRequestError(`Invalid verse of ${passageParam.verseEnd}`, 400);
+            }
+            resolve(result)
+        })
+        .catch(err=>reject(err))
+    })
+}
 
 
 async function validatePassageParam(passageParam: PassageParam){
     const {bookTitle, verseStart, verseEnd} = passageParam;
 
     return new Promise((resolve, reject)=>{
-        console.log(`Invalid verse range of ${verseStart}-${verseEnd}`)
+        
         if(verseStart > verseEnd){
             throw new InvalidRequestError(`Invalid verse range of ${verseStart}-${verseEnd}`, 400);
         }
@@ -58,9 +82,15 @@ async function validatePassageParam(passageParam: PassageParam){
                 throw new InvalidRequestError(`Book "${bookTitle} was not found."`, 404)
             }
 
-
-
-            resolve("good")
+            validateVerseRange(passageParam)
+            .then(result=>{
+                
+                resolve("good")
+            })
+                
+            .catch(err=>{
+                reject(err)
+            })
         })
         .catch((requestError: InvalidRequestError)=>{
             console.log("catch 22")

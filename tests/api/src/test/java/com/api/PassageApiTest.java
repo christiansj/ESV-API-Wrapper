@@ -59,4 +59,11 @@ public class PassageApiTest {
         statusCodeTest.getShouldReturn400("/John%207:4-2");
         LOGGER.info("PASS Invalid Verse Range Returns Status 400");
     }
+
+    @Test 
+    public void shouldReturn400ForNegativeVerseStart(){
+        LOGGER.info("== TEST Should Return 400 For Negative Verse Start ==");
+        statusCodeTest.getShouldReturn400(("/John%201:-1"));
+        LOGGER.info("PASS Negative Verse Start Returns Status 400");
+    }
 }

@@ -80,7 +80,7 @@ function getBookByTitleQuery(title: string): Promise<unknown>{
 }
 
 
-function getChaptersQuery(bookTitle: string): Promise<unknown>{
+export function getChaptersQuery(bookTitle: string): Promise<unknown>{
   const chapterQuery = `
         SELECT DISTINCT
             c.number,

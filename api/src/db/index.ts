@@ -31,7 +31,6 @@ export function executeQuery(query: string, parameters: any[] | null): Promise<u
                 reject(err)
                 return
             }
-            console.log(results)
             resolve(results)
         })
     });
