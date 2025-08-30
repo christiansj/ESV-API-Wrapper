@@ -30,7 +30,7 @@ function parsePassageParam(passage: string): PassageParam{
     const verseTokens = verses.split(":");
     const chapter = Number(verseTokens[0]);
     const verseRange = verseTokens[1];
-    
+
     if(verseRange.includes("-")) {
         const rangeTokens = verseRange.split("-")
         verseStart = rangeTokens[0]
@@ -79,13 +79,12 @@ async function validatePassageParam(passageParam: PassageParam){
         getCountWithTitle(bookTitle)
         .then(count=>{
             if(count == 0) {
-                throw new InvalidRequestError(`Book "${bookTitle} was not found."`, 404)
+                throw new InvalidRequestError(`Book "${bookTitle}" was not found.`, 404)
             }
-
+            
             validateVerseRange(passageParam)
             .then(result=>{
                 
-                resolve("good")
             })
                 
             .catch(err=>{

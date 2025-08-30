@@ -7,7 +7,10 @@ const port = process.env.PORT || 8080;
 import bookRoutes from './routes/book.route'
 import passageRoutes from './routes/passage.route'
 import { errorHandler } from './middlewares/errorHandler';
+import helmet from 'helmet';
 
+
+app.use(helmet())
 // Root url
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello, TypeScript with Express!');
