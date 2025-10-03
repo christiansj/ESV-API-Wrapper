@@ -84,7 +84,7 @@ async function validatePassageParam(passageParam: PassageParam){
             
             validateVerseRange(passageParam)
             .then(result=>{
-                
+                resolve("good")
             })
                 
             .catch(err=>{
