@@ -68,38 +68,29 @@ async function validateVerseRange(passageParam: PassageParam) {
 
 async function validatePassageParam(passageParam: PassageParam){
     const {bookTitle, verseStart, verseEnd} = passageParam;
+    const count  = await getCountWithTitle(bookTitle)
+
+    if(count == 0) {
+        throw new InvalidRequestError(`Book "${bookTitle}" was not found.`, 404)
+    } else if(verseStart > verseEnd){
+        throw new InvalidRequestError(`Invalid verse range of ${verseStart}-${verseEnd}`, 400);
+    }
 
     return new Promise((resolve, reject)=>{
-        
-        if(verseStart > verseEnd){
-            throw new InvalidRequestError(`Invalid verse range of ${verseStart}-${verseEnd}`, 400);
-        }
-
-
-        getCountWithTitle(bookTitle)
-        .then(count=>{
-            if(count == 0) {
-                throw new InvalidRequestError(`Book "${bookTitle}" was not found.`, 404)
-            }
-            
-            validateVerseRange(passageParam)
-            .then(result=>{
-                resolve("good")
-            })
-                
-            .catch(err=>{
-                reject(err)
-            })
-        })
-        .catch((requestError: InvalidRequestError)=>{
-            console.log("catch 22")
-            reject(requestError)
+        validateVerseRange(passageParam)
+        .then(result=>{
+            resolve(true)
+        })     
+        .catch(err=>{
+            console.error("InvalidRequestError")
+            reject(err)
         })
     })
 }
 
 export const getPassage = async (request: Request, response: Response) => {
     const {passage} = request.params;
+
     try{
         const passageParams = parsePassageParam(passage)
         await validatePassageParam(passageParams)
@@ -113,7 +104,6 @@ export const getPassage = async (request: Request, response: Response) => {
         response.status(500).send("Internal Server Error.")
         // throw error;
     }
-
 
     PassageModel.getPassage(passage, (err, data)=>{
         response.send(passage)
