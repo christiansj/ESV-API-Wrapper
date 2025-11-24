@@ -17,7 +17,7 @@ public class PassageApiTest {
     public void shouldReturn200ForOneVerse(){
         LOGGER.info("== TEST Should Return 200 For One Verse ==");
         statusCodeTest.getShouldReturn200("/John%203:16");
-        LOGGER.info("PASS One Verse Returns Status 200");
+        LOGGER.info("PASS One Verse Returns Status 200\n");
     }
 
 
@@ -25,7 +25,7 @@ public class PassageApiTest {
     public void shouldReturn200ForMultipleVerses(){
         LOGGER.info("== TEST Should Return 200 For Mulitple Verses ==");
         statusCodeTest.getShouldReturn200("/John%201:14-18");
-        LOGGER.info("PASS Multiple Verses Returns Status 200");
+        LOGGER.info("PASS Multiple Verses Returns Status 200\n");
     }
 
 
@@ -33,15 +33,23 @@ public class PassageApiTest {
     public void shouldReturn404ForNonexistingBook(){
         LOGGER.info("== TEST Should Return 404 For Nonexisting Book ==");
         statusCodeTest.getShouldReturn404("/BadBook%204:4");
-        LOGGER.info("PASS Nonexisting Book Returns Status 404");
+        LOGGER.info("PASS Nonexisting Book Returns Status 404\n");
     }
 
-    
+
+    @Test
+    public void shouldReturn400ForMissingVerse(){
+        LOGGER.info("== TEST Should Return 400 For Missing Verse ==");
+        statusCodeTest.getShouldReturn400("/John%2011:");
+        LOGGER.info("PASS Out of Range Chapter Returns Status 400\n");
+    }
+
+
     @Test
     public void shouldReturn400ForChapterOutOfRange(){
         LOGGER.info("== TEST Should Return 400 For Chapter Out Of Range ==");
         statusCodeTest.getShouldReturn400("/John%2033:4");
-        LOGGER.info("PASS Out of Range Chapter Returns Status 400");
+        LOGGER.info("PASS Out of Range Chapter Returns Status 400\n");
     }
 
 
@@ -49,7 +57,7 @@ public class PassageApiTest {
     public void shouldReturn400ForVerseOutOfRange(){
         LOGGER.info("== TEST Should Return 400 For Verse Out Of Range ==");
         statusCodeTest.getShouldReturn400("/John%205:99");
-        LOGGER.info("PASS Out of Range Verse Returns Status 400");
+        LOGGER.info("PASS Out of Range Verse Returns Status 400\n");
     }
 
     
@@ -57,13 +65,14 @@ public class PassageApiTest {
     public void shouldReturn400ForInvalidVerseRange(){
         LOGGER.info("== TEST Should Return 400 For Invalid Verse Range ==");
         statusCodeTest.getShouldReturn400("/John%207:4-2");
-        LOGGER.info("PASS Invalid Verse Range Returns Status 400");
+        LOGGER.info("PASS Invalid Verse Range Returns Status 400\n");
     }
 
+    
     @Test 
     public void shouldReturn400ForNegativeVerseStart(){
         LOGGER.info("== TEST Should Return 400 For Negative Verse Start ==");
         statusCodeTest.getShouldReturn400(("/John%201:-1"));
-        LOGGER.info("PASS Negative Verse Start Returns Status 400");
+        LOGGER.info("PASS Negative Verse Start Returns Status 400\n");
     }
 }

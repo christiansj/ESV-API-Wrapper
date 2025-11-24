@@ -22,11 +22,11 @@ public class StatusCodeTest {
             .trim();
     }
 
-
     private void getStatusCodeTest(int statusCode, String url){
         try{
+            final String logUrl = url.replaceAll("%20", " ");
             logger.info(String.format("Sending GET request to \"%s\"", 
-                    baseUrl + url));
+                    baseUrl + logUrl));
             given()
                 .baseUri(baseUrl + url)
             .when()
