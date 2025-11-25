@@ -4,5 +4,6 @@ CREATE TABLE IF NOT EXISTS chapter(
     verse_count INT NOT NULL,
     book_id INT NOT NULL,
     CONSTRAINT chapter_book_fk
-        FOREIGN KEY(book_id) REFERENCES book(id)
+        FOREIGN KEY(book_id) REFERENCES book(id),
+    CONSTRAINT unique_chapter_key UNIQUE(number, book_id)
 );
