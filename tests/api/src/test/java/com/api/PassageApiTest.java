@@ -37,10 +37,16 @@ public class PassageApiTest {
         LOGGER.info("PASS Nonexisting Book Returns Status 404\n");
     }
 
-
     @Test
     public void shouldReturn400ForMissingVerse(){
         LOGGER.info("== TEST Should Return 400 For Missing Verse ==");
+        statusCodeTest.getShouldReturn400("/John%201");
+        LOGGER.info("PASS Out of Range Chapter Returns Status 400\n");
+    }
+
+    @Test
+    public void shouldReturn400ForMissingVerse2(){
+        LOGGER.info("== TEST Should Return 400 For Missing Verse 2 ==");
         statusCodeTest.getShouldReturn400("/John%2011:");
         LOGGER.info("PASS Out of Range Chapter Returns Status 400\n");
     }

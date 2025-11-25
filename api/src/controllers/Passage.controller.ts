@@ -22,9 +22,10 @@ function parsePassageParam(passage: string): PassageParam{
     const bookTitle = tokens.slice(0, tokens.length-1).join(" ")
     const verses = tokens[tokens.length - 1]
 
+
     
     const verseRegex = /^\d{1,2}(\:\d{1,2}(-\d{1,2}){0,1}){0,1}$/
-    if(!verseRegex.test(verses)){
+    if(!verses.includes(":") || !verseRegex.test(verses)){
         throw new InvalidRequestError("Invalid verse format. Valid verse examples: \"3:16\", \"3:1-11\"", 400);
     }
 
