@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.annotations.Test;
 
+import com.api.util.SchemaTest;
 import com.api.util.StatusCodeTest;
 
 
@@ -11,7 +12,7 @@ public class PassageApiTest {
     private final String PASSAGE_URL = System.getenv("API_URL") + "/passage";
     private final Logger LOGGER = LogManager.getLogger("passageLogger");
     private final StatusCodeTest statusCodeTest = new StatusCodeTest(PASSAGE_URL, LOGGER);
-
+    private final SchemaTest schemaTest = new SchemaTest(PASSAGE_URL, LOGGER);
 
     @Test
     public void shouldReturn200ForOneVerse(){
@@ -74,5 +75,11 @@ public class PassageApiTest {
         LOGGER.info("== TEST Should Return 400 For Negative Verse Start ==");
         statusCodeTest.getShouldReturn400(("/John%201:-1"));
         LOGGER.info("PASS Negative Verse Start Returns Status 400\n");
+    }
+
+    @Test
+    public void shouldReturnValidSchema(){
+        LOGGER.info("== TEST Should Return Valid Schema for Passage ==");
+        schemaTest.getReturnsValidSchema("/John%201:1", "schemas/passage.json");
     }
 }

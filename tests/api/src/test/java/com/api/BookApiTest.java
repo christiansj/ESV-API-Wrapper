@@ -32,7 +32,7 @@ public class BookApiTest {
      */
     @Test
     public void shouldReturnValidSchemaForAllBooks(){
-        LOGGER.info("== TEST Should REturn Valid Schema For All Books ==");
+        LOGGER.info("== TEST Should Return Valid Schema For All Books ==");
         schemaTest.getReturnsValidSchema("", "schemas/books.json");
         LOGGER.info("PASS Get All \"/book\" returns correct schema");
     }

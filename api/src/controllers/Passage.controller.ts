@@ -6,6 +6,8 @@ import PassageModel from '../models/Passage.model';
 import { InvalidRequestError } from '../types';
 import { getChaptersQuery, getCountWithTitle } from '../models/Book.model';
 import { ErrorResponse } from '../responses';
+import { IEsvApiResponse, IPassageData } from '../interfaces/Passage.interface';
+import { getAllCallback, getOneCallback } from '.';
 
 interface PassageParam {
     bookTitle: string,
@@ -104,8 +106,15 @@ export const getPassage = async (request: Request, response: Response) => {
         response.status(500).send("Internal Server Error.")
         // throw error;
     }
-
-    PassageModel.getPassage(passage, (err, data)=>{
-        response.send(passage)
+    PassageModel.getPassage(passage, (err, data: IEsvApiResponse)=>{
+        if(err){
+            throw err;
+        }
+        const payload: IPassageData = {
+            query: passage,
+            passage: data.passages[0]
+        }
+        getAllCallback(response, err, payload)
+        // response.send(data)
     })
 }
