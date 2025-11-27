@@ -38,6 +38,12 @@ export function getCountWithTitle(title: string): Promise<number>{
     })
 }
 
+BookModel.getChapterVerseCount = async (title: string, chapter: number) =>{
+    const chapters: any = await getChaptersQuery(title);
+    const found = chapters.find(c=>c.number === chapter)
+    return found.verseCount
+}
+
 
 BookModel.getByTitle = (title: string, resultCallback: ResultCallback): void => {  
     const countPromise = getCountWithTitle(title);

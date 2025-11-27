@@ -31,18 +31,20 @@ public class PassageApiTest {
 
 
     @Test
+    public void shouldReturn200ForOneChapter(){
+        LOGGER.info("== TEST Should Return 200 For One Chapter ==");
+        statusCodeTest.getShouldReturn200("/John%203");
+        LOGGER.info("PASS One Chapter Returns Status 200\n");
+    }
+
+
+    @Test
     public void shouldReturn404ForNonexistingBook(){
         LOGGER.info("== TEST Should Return 404 For Nonexisting Book ==");
         statusCodeTest.getShouldReturn404("/BadBook%204:4");
         LOGGER.info("PASS Nonexisting Book Returns Status 404\n");
     }
 
-    @Test
-    public void shouldReturn400ForMissingVerse(){
-        LOGGER.info("== TEST Should Return 400 For Missing Verse ==");
-        statusCodeTest.getShouldReturn400("/John%201");
-        LOGGER.info("PASS Out of Range Chapter Returns Status 400\n");
-    }
 
     @Test
     public void shouldReturn400ForMissingVerse2(){

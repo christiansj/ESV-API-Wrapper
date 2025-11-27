@@ -3,6 +3,7 @@
  */
 import { Request, Response } from 'express';
 import PassageModel from '../models/Passage.model';
+import BookModel from '../models/Book.model'
 import { InvalidRequestError } from '../types';
 import { getChaptersQuery, getCountWithTitle } from '../models/Book.model';
 import { ErrorResponse } from '../responses';
@@ -17,16 +18,20 @@ interface PassageParam {
 }
 
 
-function parsePassageParam(passage: string): PassageParam{
+async function parsePassageParam(passage: string): Promise<PassageParam>{
     const tokens = passage.split(' ')
     const bookTitle = tokens.slice(0, tokens.length-1).join(" ")
-    const verses = tokens[tokens.length - 1]
+    var verses = tokens[tokens.length - 1]
 
-
-    
     const verseRegex = /^\d{1,2}(\:\d{1,2}(-\d{1,2}){0,1}){0,1}$/
-    if(!verses.includes(":") || !verseRegex.test(verses)){
+    if(!verseRegex.test(verses)){
         throw new InvalidRequestError("Invalid verse format. Valid verse examples: \"3:16\", \"3:1-11\"", 400);
+    }
+
+    // full chapter
+    if(!verses.includes(":")){
+        const verseCount =  await BookModel.getChapterVerseCount(bookTitle, parseInt(verses))
+        verses = verses.concat(`:1-${verseCount}`)
     }
 
     let verseStart, verseEnd: number;
@@ -95,7 +100,7 @@ export const getPassage = async (request: Request, response: Response) => {
     const {passage} = request.params;
 
     try{
-        const passageParams = parsePassageParam(passage)
+        const passageParams = await parsePassageParam(passage)
         await validatePassageParam(passageParams)
     } catch(error){
         if(error instanceof InvalidRequestError){
