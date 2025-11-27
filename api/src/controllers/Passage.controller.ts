@@ -28,15 +28,23 @@ async function parsePassageParam(passage: string): Promise<PassageParam>{
         throw new InvalidRequestError("Invalid verse format. Valid verse examples: \"3:16\", \"3:1-11\"", 400);
     }
 
+    
+    
     // full chapter
+    // TODO add fix for chapter out of range
     if(!verses.includes(":")){
         const verseCount =  await BookModel.getChapterVerseCount(bookTitle, parseInt(verses))
+        if(verseCount == null){
+            console.log("chap not found. :(")
+        }
         verses = verses.concat(`:1-${verseCount}`)
     }
 
-    let verseStart, verseEnd: number;
     const verseTokens = verses.split(":");
     const chapter = Number(verseTokens[0]);
+
+    let verseStart, verseEnd: number;
+ 
     const verseRange = verseTokens[1];
 
     if(verseRange.includes("-")) {

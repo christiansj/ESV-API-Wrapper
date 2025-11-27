@@ -41,6 +41,9 @@ export function getCountWithTitle(title: string): Promise<number>{
 BookModel.getChapterVerseCount = async (title: string, chapter: number) =>{
     const chapters: any = await getChaptersQuery(title);
     const found = chapters.find(c=>c.number === chapter)
+    if(!found ||!found.verseCount){
+        return null;
+    }
     return found.verseCount
 }
 

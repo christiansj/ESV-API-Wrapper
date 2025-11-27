@@ -42,6 +42,7 @@ public class PassageApiTest {
     public void shouldReturn404ForNonexistingBook(){
         LOGGER.info("== TEST Should Return 404 For Nonexisting Book ==");
         statusCodeTest.getShouldReturn404("/BadBook%204:4");
+        statusCodeTest.getShouldReturn404("/12%204:4");
         LOGGER.info("PASS Nonexisting Book Returns Status 404\n");
     }
     
@@ -64,6 +65,7 @@ public class PassageApiTest {
     @Test
     public void shouldReturn400ForChapterOutOfRange(){
         LOGGER.info("== TEST Should Return 400 For Chapter Out Of Range ==");
+        statusCodeTest.getShouldReturn400("/John%2060");
         statusCodeTest.getShouldReturn400("/John%2033:4");
         LOGGER.info("PASS Out of Range Chapter Returns Status 400\n");
     }
@@ -96,5 +98,6 @@ public class PassageApiTest {
     public void shouldReturnValidSchema(){
         LOGGER.info("== TEST Should Return Valid Schema for Passage ==");
         schemaTest.getReturnsValidSchema("/John%201:1", "schemas/passage.json");
+        LOGGER.info("PASS Get Passage \"/passage\" returns correct schema");
     }
 }
