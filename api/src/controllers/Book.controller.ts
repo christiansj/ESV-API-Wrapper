@@ -3,7 +3,7 @@
  */
 import { Request, Response } from 'express';
 import BookModel from "../models/Book.model"
-import { IBook } from "../interfaces/Book.interface";
+import { IBook } from "../types/interfaces/Book.interface";
 import { getAllCallback, getOneCallback } from ".";
 
 

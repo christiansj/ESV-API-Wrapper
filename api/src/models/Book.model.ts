@@ -2,7 +2,7 @@
  * Book model class contains functionality for fetching data from the MySQL database.
  */
 import { executeQuery } from '../db';
-import { IBook } from '../interfaces/Book.interface';
+import { IBook } from '../types/interfaces/Book.interface';
 import { ResultCallback } from '../types';
 
 // Constructor

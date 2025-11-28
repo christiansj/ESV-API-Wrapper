@@ -1,13 +1,14 @@
 /**
  * Contains functions for handling HTTP requests and responses for the "/passage" endpoint
  */
+// TODO place passage controller, model, route in same folder
 import { Request, Response } from 'express';
 import PassageModel from '../models/Passage.model';
 import BookModel from '../models/Book.model'
 import { InvalidRequestError } from '../types';
 import { getChaptersQuery, getCountWithTitle } from '../models/Book.model';
-import { ErrorResponse } from '../responses';
-import { IEsvApiResponse, IPassageData } from '../interfaces/Passage.interface';
+import { ErrorResponse } from '../types/responses';
+import { IEsvApiResponse, IPassageData } from '../types/interfaces/Passage.interface';
 import { getAllCallback, getOneCallback } from '.';
 
 interface PassageParam {
@@ -29,14 +30,9 @@ async function parsePassageParam(passage: string): Promise<PassageParam>{
     }
 
     
-    
     // full chapter
-    // TODO add fix for chapter out of range
     if(!verses.includes(":")){
         const verseCount =  await BookModel.getChapterVerseCount(bookTitle, parseInt(verses))
-        if(verseCount == null){
-            console.log("chap not found. :(")
-        }
         verses = verses.concat(`:1-${verseCount}`)
     }
 

@@ -21,5 +21,6 @@ app.use("/passage", passageRoutes)
 app.use(errorHandler)
 
 app.listen(port, () => {
+  console.log("all has updated")
   console.log(`Server running on http://localhost:${port}`);
 });

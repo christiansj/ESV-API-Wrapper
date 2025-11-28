@@ -2,7 +2,7 @@
  * Contains reusable functions for returning HTTP responses to the client.
  */
 import { Response } from 'express';
-import {DataResponse, ErrorResponse} from '../responses';
+import {DataResponse, ErrorResponse} from '../types/responses';
 
 export const getAllCallback = (response: Response, err: Error | null, data: any) => {
     if(err){
