@@ -50,7 +50,7 @@ services:
       database:
         condition: service_healthy
     volumes:
-      - ./database-tests:/usr/src/database-tests
+      - ./tests/database:/usr/src/database-tests
     environment:
       - DB_USERNAME=esv_consumer
       - DB_PASSWORD=esv!
