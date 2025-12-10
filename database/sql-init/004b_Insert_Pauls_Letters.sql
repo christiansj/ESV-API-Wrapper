@@ -40,7 +40,7 @@ VALUES
     (15, 58, @bookId),
     (16, 24, @bookId);
 
--- 1 Corinthians
+-- 2 Corinthians
 SET @bookId = (SELECT id FROM book WHERE title = '2 Corinthians');
 INSERT INTO chapter(number, verse_count, book_id)
 VALUES
@@ -73,12 +73,12 @@ VALUES
 SET @bookId = (SELECT id FROM book WHERE title = 'Ephesians');
 INSERT INTO chapter(number, verse_count, book_id)
 VALUES
-(1, 23, @bookId),
-(2, 22, @bookId),
-(3, 21, @bookId),
-(4, 32, @bookId),
-(5, 33, @bookId),
-(6, 24, @bookId);
+    (1, 23, @bookId),
+    (2, 22, @bookId),
+    (3, 21, @bookId),
+    (4, 32, @bookId),
+    (5, 33, @bookId),
+    (6, 24, @bookId);
 
 -- Philippians
 SET @bookId = (SELECT id FROM book WHERE title = 'Philippians');

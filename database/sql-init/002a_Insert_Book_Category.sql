@@ -3,4 +3,6 @@ VALUES
 ("Pentateuch"),
 ("Books of Wisdom"),
 ("Gospels"),
-("Paul's Letters");
+("Paul's Letters"),
+("Letters"),
+("Revelation");

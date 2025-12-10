@@ -39,3 +39,22 @@ VALUES
     ('2 Timothy', 4, @testament, @category),
     ('Titus', 3, @testament, @category),
     ('Philemon', 1, @testament, @category);
+
+-- Letters
+SET @category = (SELECT id FROM book_category WHERE name = "Letters");
+INSERT INTO book(title, chapter_count, testament_id, book_category_id)
+VALUES
+    ('Hebrews', 16, @testament, @category),
+    ('James', 5, @testament, @category),
+    ('1 Peter', 5, @testament, @category),
+    ('2 Peter', 3, @testament, @category),
+    ('1 John', 5, @testament, @category),
+    ('2 John', 1, @testament, @category),
+    ('3 John', 1, @testament, @category),
+    ('Jude', 1, @testament, @category);
+
+-- Revelation
+SET @category = (SELECT id FROM book_category WHERE name = "Revelation");
+INSERT INTO book(title, chapter_count, testament_id, book_category_id)
+VALUES
+    ('Revelation', 22, @testament, @category);
