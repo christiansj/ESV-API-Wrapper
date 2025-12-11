@@ -6,6 +6,7 @@ const port = process.env.PORT || 8080;
 // routes
 import bookRoutes from './routes/book.route'
 import passageRoutes from './routes/passage.route'
+import pingRoutes from './routes/ping.route'
 import { errorHandler } from './middlewares/errorHandler';
 import helmet from 'helmet';
 
@@ -18,6 +19,7 @@ app.get('/', (req: Request, res: Response) => {
 
 app.use("/book", bookRoutes)
 app.use("/passage", passageRoutes)
+app.use("/ping", pingRoutes)
 app.use(errorHandler)
 
 app.listen(port, () => {

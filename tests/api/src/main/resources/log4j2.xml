@@ -16,6 +16,11 @@
                 <Pattern>%d %p %m%n</Pattern>
             </PatternLayout>
         </File>
+        <File name="PingFile" fileName="src/main/resources/logs/ping.log" append="false">
+            <PatternLayout>
+                <Pattern>%d %p %m%n</Pattern>
+            </PatternLayout>
+        </File>
     </Appenders>
     <Loggers>
         <Logger name="bookLogger" level="info" additivity="false">
@@ -23,6 +28,9 @@
         </Logger>
         <Logger name="passageLogger" level="info" additivity="false">
             <AppenderRef ref="PassageFile" />
+        </Logger>
+        <Logger name="pingLogger" level="info" additivity="false">
+            <AppenderRef ref="PingFile" />
         </Logger>
         <Root level="error">
             <AppenderRef ref="Console"/>
