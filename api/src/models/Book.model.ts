@@ -22,7 +22,8 @@ BookModel.getAll = (resultCallback: ResultCallback): void => {
         WHERE (
             b.testament_id = t.id
             AND b.book_category_id = bc.id
-        );
+        )
+        ORDER BY b.id;
     `;
     executeQuery(query, null)
         .then(result=>resultCallback(null, result))
