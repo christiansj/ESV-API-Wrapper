@@ -10,6 +10,13 @@ VALUES
     ('Numbers', 36, @testament, @category),
     ('Deuteronomy', 34, @testament, @category);
 
+SET @category = (SELECT id FROM book_category WHERE name = 'Books of Wisdom');
+INSERT INTO book(title, chapter_count, testament_id, book_category_id)
+VALUES
+    ('Job', 42, @testament, @category),
+    ('Psalms', 150, @testament, @category),
+    ('Proverbs', 31, @testament, @category),
+    ('Ecclesiastes', 12, @testament, @category);
 
 SET @testament = (SELECT id FROM testament WHERE name = 'New Testament');
 
