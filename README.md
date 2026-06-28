@@ -75,12 +75,12 @@ robot -d ouput tests
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [Docker-Badge]: https://img.shields.io/badge/Docker%20Compose-2496ED?logo=docker&logoColor=fff
-[Express.js-Badge]: https://img.shields.io/badge/Express.js-000000?logo=express&logoColor=fff&style=flat
+[Express.js-Badge]: https://img.shields.io/badge/Express.js-%23404d59.svg?logo=express&logoColor=%2361DAFB
 [MySQL-Badge]: https://img.shields.io/badge/MySQL-4479A1?logo=mysql&logoColor=fff
 [Typescript-Badge]: https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=fff
-[Java-Badge]: [![Java](https://img.shields.io/badge/Java-%23ED8B00.svg?logo=openjdk&logoColor=white)]
+[Java-Badge]: https://img.shields.io/badge/Java-%23ED8B00.svg?logo=openjdk&logoColor=white
 [RestAssured-Badge]: https://img.shields.io/badge/REST%20Assured-green
-[RobotFramework-Badge]: https://img.shields.io/badge/Robot%20Framework-black
+[RobotFramework-Badge]: https://img.shields.io/badge/Robot%20Framework-darkgray
 
 [Express-Url]: https://expressjs.com/en/
 [TypeScript-Url]: https://www.typescriptlang.org/
