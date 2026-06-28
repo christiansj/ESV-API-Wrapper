@@ -9,6 +9,7 @@ Backend API that fetches Bible verses from [https://esv.org](https://www.esv.org
 - [![Express][Express.js-Badge]][Express-Url]
 - [![TypeScript][Typescript-Badge]][TypeScript-Url]
 - [![MySQL][MySQL-Badge]][MySQL-Url]
+- [![Java][Java-Badge]][Java-Url]
 - [![RestAssured][RestAssured-Badge]][RestAssured-Url]
 - [![RobotFramework][RobotFramework-Badge]][RobotFramework-Url]
 
@@ -62,7 +63,7 @@ mvn test
 ```bash
 docker exec -it database-tests bash
 ```
-2. Run the Database test
+2. Run the database tests
 ```bash
 robot -d ouput tests
 ```
@@ -77,6 +78,7 @@ robot -d ouput tests
 [Express.js-Badge]: https://img.shields.io/badge/Express.js-000000?logo=express&logoColor=fff&style=flat
 [MySQL-Badge]: https://img.shields.io/badge/MySQL-4479A1?logo=mysql&logoColor=fff
 [Typescript-Badge]: https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=fff
+[Java-Badge]: [![Java](https://img.shields.io/badge/Java-%23ED8B00.svg?logo=openjdk&logoColor=white)]
 [RestAssured-Badge]: https://img.shields.io/badge/REST%20Assured-green
 [RobotFramework-Badge]: https://img.shields.io/badge/Robot%20Framework-black
 
@@ -84,5 +86,6 @@ robot -d ouput tests
 [TypeScript-Url]: https://www.typescriptlang.org/
 [DockerCompose-Url]: https://docs.docker.com/compose/
 [MySQL-Url]: https://www.mysql.com/
+[Java-Url]: https://www.java.com/en/
 [RestAssured-Url]: https://rest-assured.io/
 [RobotFramework-Url]: https://robotframework.org/
