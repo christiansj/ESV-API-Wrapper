@@ -1,7 +1,7 @@
 <a id="readme-top"></a>
 
 # ESV API Wrapper
-Backend API that fetches Bible verses from [https://esv.org](https://www.esv.org/). 
+API wrapper that fetches Bible verses from [https://esv.org](https://www.esv.org/). 
 
 
 ## Built With
@@ -41,7 +41,7 @@ docker compose up -d --build
 ## Usage
 
 ### Testing
-Ensure the `api-tests` and `database-tests` Docker containers are running prior to running tests.
+Ensure the `api-tests` and `database-tests` Docker containers are running prior to executing tests.
 
 #### API Testing
 [REST Assured](https://rest-assured.io/) is used for API testing.
@@ -73,7 +73,6 @@ robot -d ouput tests
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [Docker-Badge]: https://img.shields.io/badge/Docker%20Compose-2496ED?logo=docker&logoColor=fff
 [Express.js-Badge]: https://img.shields.io/badge/Express.js-%23404d59.svg?logo=express&logoColor=%2361DAFB
 [MySQL-Badge]: https://img.shields.io/badge/MySQL-4479A1?logo=mysql&logoColor=fff
