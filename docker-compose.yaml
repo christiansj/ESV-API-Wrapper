@@ -1,7 +1,6 @@
 services:
   database:
     image: mysql:8.0
-    container_name: bible-database
     restart: always
     ports:
       - 3306:3306
