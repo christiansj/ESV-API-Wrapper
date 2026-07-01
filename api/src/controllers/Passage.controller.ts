@@ -1,15 +1,13 @@
 /**
  * Contains functions for handling HTTP requests and responses for the "/passage" endpoint
  */
-// TODO place passage controller, model, route in same folder
 import { Request, Response } from 'express';
 import PassageModel, { getVerseRange } from '../models/Passage.model';
-import BookModel from '../models/Book.model'
 import { InvalidRequestError } from '../types';
 import { getChaptersQuery, getCountWithTitle } from '../models/Book.model';
-import { ErrorResponse } from '../types/responses';
 import { IEsvApiResponse, IPassageData } from '../types/interfaces/Passage.interface';
-import { getAllCallback, getOneCallback } from '.';
+import { getAllCallback } from '.';
+
 
 interface PassageParam {
     bookTitle: string,
@@ -29,34 +27,21 @@ async function parsePassageParam(passage: string): Promise<PassageParam>{
     }
 
     const bookTitle = tokens.slice(0, tokens.length-1).join(" ")
-    // full chapter
     const {chapter, verseStart, verseEnd} = await getVerseRange(bookTitle, verses)
     
     return {chapter, bookTitle, verseStart, verseEnd};
 }
 
 async function validateVerseRange(passageParam: PassageParam) {
-    interface ChapterRow {
-        number: number,
-        verseCount: number
+    const results: any = await getChaptersQuery(passageParam.bookTitle)
+    const chapter = results.find(chapter => chapter.number === passageParam.chapter);
+    if(!chapter){
+        console.log('quack')
+        throw new InvalidRequestError(`Invalid chapter of ${passageParam.chapter}`, 400);
+    } else if(passageParam.verseEnd > chapter.verseCount){
+        throw new InvalidRequestError(`Invalid verse of ${passageParam.verseEnd}`, 400);
     }
-
-    return new Promise((resolve, reject)=>{
-        getChaptersQuery(passageParam.bookTitle)
-        .then((result: Array<ChapterRow>)=>{
-            const chapter = result.find(chapter => chapter.number === passageParam.chapter);
-
-            if(!chapter){
-                throw new InvalidRequestError(`Invalid chapter of ${passageParam.chapter}`, 400);
-            } else if(passageParam.verseEnd > chapter.verseCount){
-                throw new InvalidRequestError(`Invalid verse of ${passageParam.verseEnd}`, 400);
-            }
-            resolve(result)
-        })
-        .catch(err=>reject(err))
-    })
 }
-
 
 async function validatePassageParam(passageParam: PassageParam){
     const {bookTitle, verseStart, verseEnd} = passageParam;
@@ -67,17 +52,7 @@ async function validatePassageParam(passageParam: PassageParam){
     } else if(verseStart > verseEnd){
         throw new InvalidRequestError(`Invalid verse range of ${verseStart}-${verseEnd}`, 400);
     }
-
-    return new Promise((resolve, reject)=>{
-        validateVerseRange(passageParam)
-        .then(result=>{
-            resolve(true)
-        })     
-        .catch(err=>{
-            console.error("InvalidRequestError")
-            reject(err)
-        })
-    })
+    await validateVerseRange(passageParam)
 }
 
 export const getPassage = async (request: Request, response: Response) => {
@@ -94,6 +69,5 @@ export const getPassage = async (request: Request, response: Response) => {
             passage: data.passages[0]
         }
         getAllCallback(response, err, payload)
-        // response.send(data)
     })
 }

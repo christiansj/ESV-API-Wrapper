@@ -1,7 +1,7 @@
 /**
  * Book model class contains functionality for fetching data from the MySQL database.
  */
-import { executeQuery } from '../db';
+import { connect, executeQuery } from '../db';
 import { IBook } from '../types/interfaces/Book.interface';
 import { ResultCallback } from '../types';
 
@@ -86,11 +86,12 @@ function getBookByTitleQuery(title: string): Promise<unknown>{
             AND b.book_category_id = bc.id
         );
     `;
+
     return executeQuery(bookQuery, [title])
 }
 
 
-export function getChaptersQuery(bookTitle: string): Promise<unknown>{
+export async function getChaptersQuery(bookTitle: string): Promise<unknown>{
   const chapterQuery = `
         SELECT DISTINCT
             c.number,
@@ -104,7 +105,7 @@ export function getChaptersQuery(bookTitle: string): Promise<unknown>{
         )
         ORDER BY number;
     `;
-    return executeQuery(chapterQuery, [bookTitle])
+    return await executeQuery(chapterQuery, [bookTitle])
 }
 
 
