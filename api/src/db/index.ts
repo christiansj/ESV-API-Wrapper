@@ -22,16 +22,8 @@ export function connect(): Connection {
 
 }
 
-export function executeQuery(query: string, parameters: any[] | null): Promise<unknown> {
-    return new Promise((resolve, reject)=>{
-        const connection = connect()
-        connection.query(query, parameters, (err, results)=> {
-            if(err){
-                console.error(err)
-                reject(err)
-                return
-            }
-            resolve(results)
-        })
-    });
+export async function executeQuery(query: string, parameters: any[] | null): Promise<unknown> {
+    const connection = connect()
+    const [results, fields]: [Array<any>, Array<any>] = await connection.promise().query(query, parameters)
+    return results;
 }
