@@ -14,9 +14,9 @@ export const getAllCallback = (response: Response, err: Error | null, data: any)
 
 export const getOneCallback = (response: Response, err: Error, data: Array<any>) =>{
     if(err){
-        response.status(500).json(ErrorResponse("Internal server error", 500));
-        throw err;
-    } else if (data.length == 0){
+        throw err
+    }
+    if (data.length == 0){
         response.status(404).json(ErrorResponse("Resource not found", 404))
     } 
     else{

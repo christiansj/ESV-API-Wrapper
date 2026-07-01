@@ -1,7 +1,7 @@
 /**
  * Contains functions for handling HTTP requests and responses for the "/books" endpoint
  */
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import BookModel from "../models/Book.model"
 import { IBook } from "../types/interfaces/Book.interface";
 import { getAllCallback, getOneCallback } from ".";
@@ -12,7 +12,11 @@ export const getAll = (request: Request, response: Response) => {
 }
 
 
-export const getByTitle = (request: Request, response: Response) => {
-    BookModel.getByTitle(request.params.title, (err: Error, data: IBook[])=>
-        getOneCallback(response, err, data));   
+export const getByTitle = async (request: Request, response: Response, next: NextFunction) => {
+    try{
+        return await BookModel.getByTitle(request.params.title)  
+    }catch(err){
+        next(err)
+    }
+   
 }

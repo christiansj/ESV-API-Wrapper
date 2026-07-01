@@ -1,7 +1,7 @@
 /**
  * Book model class contains functionality for fetching data from the MySQL database.
  */
-import { connect, executeQuery } from '../db';
+import { executeQuery } from '../db';
 import { IBook } from '../types/interfaces/Book.interface';
 import { ResultCallback } from '../types';
 
@@ -49,22 +49,17 @@ BookModel.getChapterVerseCount = async (title: string, chapter: number) =>{
 }
 
 
-BookModel.getByTitle = (title: string, resultCallback: ResultCallback): void => {  
+BookModel.getByTitle = async (title: string) => {  
     const countPromise = getCountWithTitle(title);
     const bookPromise = getBookByTitleQuery(title);
     const chapterPromise = getChaptersQuery(title);
     
-    Promise.all([countPromise, bookPromise, chapterPromise])
+    await Promise.all([countPromise, bookPromise, chapterPromise])
     .then(([count, book, chapters]: [number, IBook, any])=> {
         if(count == 0){
-            resultCallback(null, []);
-            return;
+            return null;
         }
-        resultCallback(null, {...book["0"], chapters});
-    })
-    .catch(err=>{
-        console.error(err)
-        resultCallback(err, null);
+        return {...book["0"], chapters};
     })
 }
 
@@ -86,12 +81,11 @@ function getBookByTitleQuery(title: string): Promise<unknown>{
             AND b.book_category_id = bc.id
         );
     `;
-
     return executeQuery(bookQuery, [title])
 }
 
 
-export async function getChaptersQuery(bookTitle: string): Promise<unknown>{
+export function getChaptersQuery(bookTitle: string): Promise<unknown>{
   const chapterQuery = `
         SELECT DISTINCT
             c.number,
@@ -105,7 +99,7 @@ export async function getChaptersQuery(bookTitle: string): Promise<unknown>{
         )
         ORDER BY number;
     `;
-    return await executeQuery(chapterQuery, [bookTitle])
+    return executeQuery(chapterQuery, [bookTitle])
 }
 
 

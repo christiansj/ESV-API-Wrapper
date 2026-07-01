@@ -1,7 +1,7 @@
 /**
  * Contains functions for handling HTTP requests and responses for the "/passage" endpoint
  */
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import PassageModel, { getVerseRange } from '../models/Passage.model';
 import { InvalidRequestError } from '../types';
 import { getChaptersQuery, getCountWithTitle } from '../models/Book.model';
@@ -36,7 +36,6 @@ async function validateVerseRange(passageParam: PassageParam) {
     const results: any = await getChaptersQuery(passageParam.bookTitle)
     const chapter = results.find(chapter => chapter.number === passageParam.chapter);
     if(!chapter){
-        console.log('quack')
         throw new InvalidRequestError(`Invalid chapter of ${passageParam.chapter}`, 400);
     } else if(passageParam.verseEnd > chapter.verseCount){
         throw new InvalidRequestError(`Invalid verse of ${passageParam.verseEnd}`, 400);
@@ -55,14 +54,14 @@ async function validatePassageParam(passageParam: PassageParam){
     await validateVerseRange(passageParam)
 }
 
-export const getPassage = async (request: Request, response: Response) => {
+export const getPassage = async (request: Request, response: Response, next: NextFunction) => {
     const {passage} = request.params;
     const passageParams = await parsePassageParam(passage)
     await validatePassageParam(passageParams)
    
     PassageModel.getPassage(passage, (err, data: IEsvApiResponse)=>{
         if(err){
-            throw err;
+            next(err);
         }
         const payload: IPassageData = {
             query: passage,
