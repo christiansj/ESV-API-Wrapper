@@ -3,7 +3,7 @@
  */
 // TODO place passage controller, model, route in same folder
 import { Request, Response } from 'express';
-import PassageModel from '../models/Passage.model';
+import PassageModel, { getVerseRange } from '../models/Passage.model';
 import BookModel from '../models/Book.model'
 import { InvalidRequestError } from '../types';
 import { getChaptersQuery, getCountWithTitle } from '../models/Book.model';
@@ -20,38 +20,18 @@ interface PassageParam {
 
 
 async function parsePassageParam(passage: string): Promise<PassageParam>{
+    // passage examples: Matthew 1, John 3:2-3
     const tokens = passage.split(' ')
-    const bookTitle = tokens.slice(0, tokens.length-1).join(" ")
     var verses = tokens[tokens.length - 1]
-
     const verseRegex = /^\d{1,2}(\:\d{1,2}(-\d{1,2}){0,1}){0,1}$/
     if(!verseRegex.test(verses)){
         throw new InvalidRequestError("Invalid verse format. Valid verse examples: \"3:16\", \"3:1-11\"", 400);
     }
 
-    
+    const bookTitle = tokens.slice(0, tokens.length-1).join(" ")
     // full chapter
-    if(!verses.includes(":")){
-        const verseCount =  await BookModel.getChapterVerseCount(bookTitle, parseInt(verses))
-        verses = verses.concat(`:1-${verseCount}`)
-    }
-
-    const verseTokens = verses.split(":");
-    const chapter = Number(verseTokens[0]);
-
-    let verseStart, verseEnd: number;
- 
-    const verseRange = verseTokens[1];
-
-    if(verseRange.includes("-")) {
-        const rangeTokens = verseRange.split("-")
-        verseStart = rangeTokens[0]
-        verseEnd = Number(rangeTokens[1])
-    } else {
-        verseStart = verseRange
-        verseEnd = Number(verseRange)
-    }    
-
+    const {chapter, verseStart, verseEnd} = await getVerseRange(bookTitle, verses)
+    
     return {chapter, bookTitle, verseStart, verseEnd};
 }
 
@@ -102,20 +82,9 @@ async function validatePassageParam(passageParam: PassageParam){
 
 export const getPassage = async (request: Request, response: Response) => {
     const {passage} = request.params;
-
-    try{
-        const passageParams = await parsePassageParam(passage)
-        await validatePassageParam(passageParams)
-    } catch(error){
-        if(error instanceof InvalidRequestError){
-            const payload = ErrorResponse(error.message, error.errorCode)
-            response.status(error.errorCode).json(payload)
-            return;
-        }
-        console.error(error)
-        response.status(500).send("Internal Server Error.")
-        // throw error;
-    }
+    const passageParams = await parsePassageParam(passage)
+    await validatePassageParam(passageParams)
+   
     PassageModel.getPassage(passage, (err, data: IEsvApiResponse)=>{
         if(err){
             throw err;
