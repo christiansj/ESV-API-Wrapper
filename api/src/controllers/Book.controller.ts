@@ -14,7 +14,8 @@ export const getAll = (request: Request, response: Response) => {
 
 export const getByTitle = async (request: Request, response: Response, next: NextFunction) => {
     try{
-        return await BookModel.getByTitle(request.params.title)  
+        const book: any = await BookModel.getByTitle(request.params.title)  
+        getOneCallback(response, null, book)
     }catch(err){
         next(err)
     }

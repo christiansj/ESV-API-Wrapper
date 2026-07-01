@@ -54,10 +54,10 @@ BookModel.getByTitle = async (title: string) => {
     const bookPromise = getBookByTitleQuery(title);
     const chapterPromise = getChaptersQuery(title);
     
-    await Promise.all([countPromise, bookPromise, chapterPromise])
+    return await Promise.all([countPromise, bookPromise, chapterPromise])
     .then(([count, book, chapters]: [number, IBook, any])=> {
         if(count == 0){
-            return null;
+            return;
         }
         return {...book["0"], chapters};
     })

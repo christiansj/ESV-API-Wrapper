@@ -12,11 +12,11 @@ export const getAllCallback = (response: Response, err: Error | null, data: any)
     response.json(DataResponse(data))
 }
 
-export const getOneCallback = (response: Response, err: Error, data: Array<any>) =>{
+export const getOneCallback = (response: Response, err: Error, data: any) =>{
     if(err){
         throw err
     }
-    if (data.length == 0){
+    if (!data){
         response.status(404).json(ErrorResponse("Resource not found", 404))
     } 
     else{
