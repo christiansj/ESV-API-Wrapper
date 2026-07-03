@@ -1,7 +1,7 @@
 <a id="readme-top"></a>
 
 # ESV API Wrapper
-API wrapper that fetches Bible verses from [https://esv.org](https://www.esv.org/). 
+Containerized API wrapper that fetches Bible verses from [https://esv.org](https://www.esv.org/). 
 
 
 ## Built With
@@ -17,11 +17,17 @@ API wrapper that fetches Bible verses from [https://esv.org](https://www.esv.org
 ## Getting Started
 
 ### Prerequisites 
-Docker Compose is used to manage the application's services. Configurations can be found in `docker-compose.yaml`
+[Docker Compose][DockerCompose-Url] is used to manage the application's services. Container configuration can be found in the `docker-compose.yaml` file.
 
-Docker Compose can be downloaded here [here](https://docs.docker.com/compose/install).
+Docker can be downloaded [here](https://www.docker.com/products/docker-desktop/).
 
-### Installation
+Verify Docker is installed
+```bash 
+docker --version
+```
+
+### Project Setup
+
 Follow the steps below to set up the project locally. 
 
 1. Generate a free API key at [https://api.esv.org/docs/](https://api.esv.org/docs/)
@@ -40,12 +46,19 @@ docker compose up -d --build
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Usage
+### API
+The Express server is run from the `esv-api` container. It can be reached at `http://localhost:8080/`. 
+
+#### Documentation
+[Swagger][Swagger-Url] is used to document all API endpoints and schemas. It can be accessed at `http://localhost:8080/api-docs`.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Testing
-Ensure the `api-tests` and `database-tests` Docker containers are running prior to executing tests.
+Ensure the `api-tests` and `database-tests`  containers are running prior to executing tests by running `docker-compose ps`.
 
 #### API Testing
-[REST Assured](https://rest-assured.io/) is used for API testing.
+[REST Assured][RestAssured-Url] is used for API testing.
 
 1. Run the `api-tests` container
 ```bash
@@ -55,10 +68,12 @@ docker exec -it api-tests bash
 ```bash
 mvn test
 ```
+
+(Log files are generated in `main/resources/logs` directory)
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 #### Database Testing
-[Robot Framework](https://robotframework.org/) is used for database testing.
+[Robot Framework][RobotFramework-Url] is used for database testing.
 
 1. Run the `database-tests` container
 ```bash
@@ -69,7 +84,7 @@ docker exec -it database-tests bash
 robot -d ouput tests
 ```
 
-(Log files are generated in output directory)
+(Log files are generated in `output` directory)
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
