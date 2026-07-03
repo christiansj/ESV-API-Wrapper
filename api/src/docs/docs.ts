@@ -73,6 +73,30 @@
 /**
  * @swagger
  * tags:
- *      name: Book
- *      description: Endpoint for fetching biblical books.
+ *      - name: Book
+ *        description: Endpoint for fetching biblical books.
+ *      - name: Passage
+ *        description: Endpoint for fetching passages from esv.org.
+ */
+
+/**
+ * @swagger
+ * components:
+ *      schemas:
+ *          Passage:
+ *              type: object
+ *              properties:
+ *                  data:
+ *                      type: object
+ *                      properties:
+ *                          query:
+ *                              type: string
+ *                              description: The passage query from the query. (examples - Genesis 1:3, John 3:16)
+ *                          passage:
+ *                              type: string
+ *                              description: The passage returned from the official ESV API (esv.org).
+ *              example:
+ *                  data:
+ *                      query: Mark 16:15
+ *                      passage: "Mark 16:15\n\n  [15] And he said to them, “Go into all the world and proclaim the gospel to the whole creation. (ESV)"
  */
