@@ -10,6 +10,7 @@ API wrapper that fetches Bible verses from [https://esv.org](https://www.esv.org
 - [![TypeScript][Typescript-Badge]][TypeScript-Url]
 - [![MySQL][MySQL-Badge]][MySQL-Url]
 - [![Java][Java-Badge]][Java-Url]
+- [![Swaggger][Swagger-Badge]][Swagger-Url]
 - [![RestAssured][RestAssured-Badge]][RestAssured-Url]
 - [![RobotFramework][RobotFramework-Badge]][RobotFramework-Url]
 
@@ -75,6 +76,7 @@ robot -d ouput tests
 <!-- MARKDOWN LINKS & IMAGES -->
 [Docker-Badge]: https://img.shields.io/badge/Docker%20Compose-2496ED?logo=docker&logoColor=fff
 [Express.js-Badge]: https://img.shields.io/badge/Express.js-%23404d59.svg?logo=express&logoColor=%2361DAFB
+[Swagger-Badge]: https://img.shields.io/badge/Swagger-lightgreen
 [MySQL-Badge]: https://img.shields.io/badge/MySQL-4479A1?logo=mysql&logoColor=fff
 [Typescript-Badge]: https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=fff
 [Java-Badge]: https://img.shields.io/badge/Java-%23ED8B00.svg?logo=openjdk&logoColor=white
@@ -83,6 +85,7 @@ robot -d ouput tests
 
 [Express-Url]: https://expressjs.com/en/
 [TypeScript-Url]: https://www.typescriptlang.org/
+[Swagger-Url]: https://swagger.io/
 [DockerCompose-Url]: https://docs.docker.com/compose/
 [MySQL-Url]: https://www.mysql.com/
 [Java-Url]: https://www.java.com/en/
