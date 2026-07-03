@@ -46,7 +46,7 @@ const routes = express()
 
 /**
  * @swagger
- * /book:
+ * /api/book:
  *      get:
  *        summary: Returns all the books stored in the database.
  *        tags: [Book]
@@ -64,7 +64,7 @@ routes.get("/", getAll)
 
 /**
  * @swagger
- * /book/{title}:
+ * /api/book/{title}:
  *      get:
  *        summary: Gets a book by title   
  *        tags: [Book]

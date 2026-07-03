@@ -12,7 +12,7 @@ import com.api.util.StatusCodeTest;
 
 
 public class BookApiTest {
-    private final String BOOK_URL = System.getenv("API_URL") + "/book";
+    private final String BOOK_URL = System.getenv("API_URL") + "/api/book";
     private final Logger LOGGER = LogManager.getLogger("bookLogger");
     private final StatusCodeTest statusCodeTest = new StatusCodeTest(BOOK_URL, LOGGER);
     private final SchemaTest schemaTest = new SchemaTest(BOOK_URL, LOGGER);

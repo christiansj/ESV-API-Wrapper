@@ -9,7 +9,7 @@ import com.api.util.StatusCodeTest;
 
 
 public class PassageApiTest {
-    private final String PASSAGE_URL = System.getenv("API_URL") + "/passage";
+    private final String PASSAGE_URL = System.getenv("API_URL") + "/api/passage";
     private final Logger LOGGER = LogManager.getLogger("passageLogger");
     private final StatusCodeTest statusCodeTest = new StatusCodeTest(PASSAGE_URL, LOGGER);
     private final SchemaTest schemaTest = new SchemaTest(PASSAGE_URL, LOGGER);

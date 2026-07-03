@@ -26,8 +26,8 @@ app.get('/', (req: Request, res: Response) => {
   res.send('Hello, TypeScript with Express!');
 });
 
-app.use("/book", bookRoutes)
-app.use("/passage", passageRoutes)
+app.use("/api/book", bookRoutes)
+app.use("/api/passage", passageRoutes)
 app.use("/ping", pingRoutes)
 app.use(errorHandler)
 

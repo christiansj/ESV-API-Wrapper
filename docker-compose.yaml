@@ -1,5 +1,6 @@
 services:
   database:
+    container_name: esv-database
     image: mysql:8.0
     restart: always
     ports:
@@ -19,8 +20,7 @@ services:
     networks:
       - bible_network
       
-  api:
-    container_name: esv-api
+  esv-api:
     build: ./api
     ports: 
       - 8080:8080
@@ -64,7 +64,7 @@ services:
     volumes:
       - ./tests/api:/usr/src/api-tests
     environment:
-      - API_URL=http://api:8080
+      - API_URL=http://esv-api:8080
     networks:
       - bible_network
     command: tail -F anything
