@@ -1,5 +1,76 @@
 <a id="readme-top"></a>
 
+<details>
+    <summary>Table of Contents</summary>
+    <ol>
+        <li>
+            <a href="#esv-api-wrapper">
+                ESV API Wrapper
+            </a>
+            <ul>
+                <li>
+                    <a href="#built-with">
+                        Built With
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#getting-started">
+                Getting Started
+            </a>
+            <ul>
+                <li>
+                    <a href="#prerequisites">
+                        Prerequisties
+                    </a>
+                </li>
+                <li>
+                    <a href="#project-setup">
+                        Project Setup
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#usage">
+                Usage
+            </a>
+            <ul>
+                <li>
+                    <a href="#api">
+                        API
+                    </a>
+                </li>
+                <li>
+                    <a href="#documentation">
+                        Documentation
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#testing">
+                Testing
+            </a>
+            <ul>
+                <li>
+                    <a href="#api-testing">
+                        API Testing
+                    </a>
+                </li>
+                <li>
+                    <a href="#database-testing">
+                        Database Testing
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ol>
+</details>
+
+<br>
+
 # ESV API Wrapper
 Containerized API wrapper that fetches Bible verses from [https://esv.org](https://www.esv.org/). 
 
@@ -17,7 +88,7 @@ Containerized API wrapper that fetches Bible verses from [https://esv.org](https
 ## Getting Started
 
 ### Prerequisites 
-[Docker Compose][DockerCompose-Url] is used to manage the application's services. Container configuration can be found in the `docker-compose.yaml` file.
+[Docker Compose][DockerCompose-Url] is used to manage the application's services. Container configuration can be found in the file [`compose.yaml`](./compose.yaml).
 
 Docker can be downloaded [here](https://www.docker.com/products/docker-desktop/).
 
@@ -35,7 +106,7 @@ Follow the steps below to set up the project locally.
 ```bash
 git clone https://github.com/christiansj/ESV-API-Wrapper.git
 ```
-3. Paste your API key in `.env`
+3. Paste your API key in a file called `.env` in the root directory (alongside the `compose.yaml` file).
 ```
 ESV_API_KEY='Paste API Key here'
 ```
@@ -47,26 +118,25 @@ docker compose up -d --build
 
 ## Usage
 ### API
-The Express server is run from the `esv-api` container. It can be reached at `http://localhost:8080/`. 
+The Express server is run from the `esv-api` container. It can be reached at http://localhost:8080/. 
 
 #### Documentation
-[Swagger][Swagger-Url] is used to document all API endpoints and schemas. It can be accessed at `http://localhost:8080/api-docs`.
+[Swagger][Swagger-Url] is used to document all API endpoints and schemas. It can be accessed at http://localhost:8080/api-docs.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Testing
-Ensure the `api-tests` and `database-tests`  containers are running prior to executing tests by running `docker-compose ps`.
+Ensure the `api-tests` and `database-tests`  containers are running prior to executing tests by running 
+```
+docker ps
+```
 
 #### API Testing
 [REST Assured][RestAssured-Url] is used for API testing.
 
-1. Run the `api-tests` container
+The following command executes API tests:
 ```bash
-docker exec -it api-tests bash
-```
-2. Run the API tests using Maven
-```bash
-mvn test
+docker exec -it api-tests mvn test
 ```
 
 (Log files are generated in `main/resources/logs` directory)
@@ -75,13 +145,9 @@ mvn test
 #### Database Testing
 [Robot Framework][RobotFramework-Url] is used for database testing.
 
-1. Run the `database-tests` container
+The following command executes database tests:
 ```bash
-docker exec -it database-tests bash
-```
-2. Run the database tests
-```bash
-robot -d ouput tests
+docker exec -it database-tests robot -d output tests
 ```
 
 (Log files are generated in `output` directory)
