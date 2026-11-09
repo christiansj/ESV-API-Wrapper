@@ -17,6 +17,8 @@ jobs:
         uses: docker/setup-compose-action@v2
       
       - name: Start Docker containers
+        env:
+          ESV_API_KEY: ${{ secrets.ESV_API_KEY }}
         run: docker compose up -d --wait --wait-timeout 30
 
       - name: Wait for services to start
