@@ -19,6 +19,10 @@ jobs:
       - name: Start Docker containers
         run: docker compose up -d --wait --wait-timeout 30
 
+      - name: Wait for services to start
+        run: sleep 30s
+        shell: bash
+        
       - name: Run API tests
         run: docker exec api-tests mvn test
       
