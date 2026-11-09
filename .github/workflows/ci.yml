@@ -1,0 +1,26 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  compose:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      
+      - name: Set up Docker Compose
+        uses: docker/setup-compose-actions@v2
+      
+      - name: Start Docker containers
+        run: docker compose up -d  
+
+      - name: Run API tests
+        run: docker exec -it api-tests mvn test
+      
+      - name: Run Database tests
+        run: docker exec -it database-tests robot -d output tests
