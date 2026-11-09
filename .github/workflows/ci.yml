@@ -20,7 +20,7 @@ jobs:
         run: docker compose up -d  
 
       - name: Run API tests
-        run: docker exec -it api-tests mvn test
+        run: docker exec api-tests mvn test
       
       - name: Run Database tests
-        run: docker exec -it database-tests robot -d output tests
+        run: docker exec database-tests robot -d output tests
