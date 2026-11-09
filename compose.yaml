@@ -21,6 +21,7 @@ services:
       - bible_network
       
   esv-api:
+    container_name: esv-api
     build: ./api
     ports: 
       - 8080:8080
