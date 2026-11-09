@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
 import helmet from 'helmet';
-
+const cors = require('cors');
 // routes
 import bookRoutes from './routes/book.route'
 import passageRoutes from './routes/passage.route'
@@ -15,7 +15,9 @@ import swaggerOptions from './swaggerOptions';
 
 const app = express();
 const port = process.env.PORT || 8080;
-app.use(helmet())
+app.use(helmet());
+
+app.use(cors());
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
