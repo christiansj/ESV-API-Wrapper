@@ -17,7 +17,7 @@ jobs:
         uses: docker/setup-compose-action@v2
       
       - name: Start Docker containers
-        run: docker compose up -d  
+        run: docker compose up -d --wait --wait-timeout 30
 
       - name: Run API tests
         run: docker exec api-tests mvn test
